@@ -3,16 +3,10 @@ from org.csstudio.display.builder.runtime.script import ScriptUtil
 #from org.epics.pvmanager import PVManager
 #from org.epics.pvmanager.data import VTypeHelper
 #from org.csstudio.simplepv import PVFactory
+import epik8sutil
 
 logger = ScriptUtil.getLogger()
-zone = { 
-        "LINAC":[0,1,2,3],
-        "LINAC-UNDULATOR":[0,1,2,3,6],
-        "LINAC-DOODLEG":[0,1,2,3,9,10,11],
-        "DOODLEG":[9,10,11],
-        "EXIN":[4,5,7,8],
-        "All":[0,1,2,3,4,5,6,7,8,9,10,11]
-        } 
+# device_list = epik8sutil.conf_to_dev(widget)
 
 err_val = []
 def getZoneIndexes(zoneName):
@@ -99,49 +93,46 @@ def main():
     
     #logger.info("Il valore corrente della PV di "+str(len(current_value_x))+" elementi e' "+str(current_value_x))
     selectedAreaName = PVUtil.getString(ScriptUtil.getPrimaryPV(ScriptUtil.findWidgetByName(widget, "Combo Box")))
-    index=getZoneIndexes(selectedAreaName)
-    if (index != err_val):
+    # index=getZoneIndexes(selectedAreaName)
         #logger.info("Gli indici da prendere per la zona "+selectedAreaName+" sono "+str(index))
-        pv_output_val_y=[current_value_y[i] for i in index]
+    pv_output_val_y=current_value_y
         #logger.info("Gli indici da prendere per la zona "+selectedAreaName+" sono "+str(index)+"producendo un output "+str(pv_output_val_y))
-        pv_output_val_x=[current_value_x[i] for i in index]
-        if (have_stored== True):
-           pv_output_stored_x=[stored_value_x[i] for i in index]
-           pv_output_stored_y=[stored_value_y[i] for i in index]
-           #logger.info("pv_out_stored_x= "+ str(pv_output_stored_x))
-           pass
-        if (avg_available == True):
-            pv_output_avg_x=[avg_value_x[i] for i in index]
-            pv_output_avg_y=[avg_value_y[i] for i in index]
-            pv_output_std_x=[std_value_x[i] for i in index]
-            pv_output_std_y=[std_value_y[i] for i in index]
+    pv_output_val_x=current_value_x
+    if (have_stored== True):
+        pv_output_stored_x=stored_value_x
+        pv_output_stored_y=stored_value_y
+        #logger.info("pv_out_stored_x= "+ str(pv_output_stored_x))
+        pass
+    if (avg_available == True):
+        pv_output_avg_x=avg_value_x
+        pv_output_avg_y=avg_value_y
+        pv_output_std_x=std_value_x
+        pv_output_std_y=std_value_y
 
-        # Crea la PV per la scrittura (usando 1 per scrittura)
-        pv_write = PVUtil.createPV("loc://yVisual<VDoubleArray>", 1)
-        pv_write.write(pv_output_val_y)
-        pv_write = PVUtil.createPV("loc://xVisual<VDoubleArray>", 1)
-        pv_write.write(pv_output_val_x)
-        if (have_stored):
-            
-            pv_write = PVUtil.createPV("loc://xVisualStored<VDoubleArray>", 1)
-            pv_write.write(pv_output_stored_x)
-            pv_write = PVUtil.createPV("loc://yVisualStored<VDoubleArray>", 1)
-            pv_write.write(pv_output_stored_y)
-            pass
-        if (avg_available):
-            pv_write = PVUtil.createPV("loc://xVisualAvg<VDoubleArray>", 1)
-            pv_write.write(pv_output_avg_x)
-            pv_write = PVUtil.createPV("loc://yVisualAvg<VDoubleArray>", 1)
-            pv_write.write(pv_output_avg_y)
+    # Crea la PV per la scrittura (usando 1 per scrittura)
+    pv_write = PVUtil.createPV("loc://yVisual<VDoubleArray>", 1)
+    pv_write.write(pv_output_val_y)
+    pv_write = PVUtil.createPV("loc://xVisual<VDoubleArray>", 1)
+    pv_write.write(pv_output_val_x)
+    if (have_stored):
+        
+        pv_write = PVUtil.createPV("loc://xVisualStored<VDoubleArray>", 1)
+        pv_write.write(pv_output_stored_x)
+        pv_write = PVUtil.createPV("loc://yVisualStored<VDoubleArray>", 1)
+        pv_write.write(pv_output_stored_y)
+        pass
+    if (avg_available):
+        pv_write = PVUtil.createPV("loc://xVisualAvg<VDoubleArray>", 1)
+        pv_write.write(pv_output_avg_x)
+        pv_write = PVUtil.createPV("loc://yVisualAvg<VDoubleArray>", 1)
+        pv_write.write(pv_output_avg_y)
 
-            pv_write = PVUtil.createPV("loc://xVisualStd<VDoubleArray>", 1)
-            pv_write.write(pv_output_std_x)
-            pv_write = PVUtil.createPV("loc://yVisualStd<VDoubleArray>", 1)
-            pv_write.write(pv_output_std_y)
+        pv_write = PVUtil.createPV("loc://xVisualStd<VDoubleArray>", 1)
+        pv_write.write(pv_output_std_x)
+        pv_write = PVUtil.createPV("loc://yVisualStd<VDoubleArray>", 1)
+        pv_write.write(pv_output_std_y)
 
-    else:
-        logger.info("index not found "+str(index))
-    pass      
+   
 
 
 main()
