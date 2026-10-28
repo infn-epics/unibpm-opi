@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Generic BPM trajectory/orbit viewer. BPMs are read from the beamline values*.yaml (CONFFILE),
+  see scripts/bpmutil.py for the supported templates/keys.
+  Macros: CONFFILE (required), ZONE, TITLE, PERIOD (s), NAVG, SUMMIN, SCALE (raw -> mm),
+          SORT (geo|name), RANGE_MIN/RANGE_MAX (mm), DATADIR
+-->
+<display version="2.0.0">
+  <name>$(TITLE)</name>
+  <macros>
+    <TITLE>BPM Trajectory</TITLE>
+    <ZONE>ALL</ZONE>
+    <PERIOD>1</PERIOD>
+    <NAVG>20</NAVG>
+    <SUMMIN>0</SUMMIN>
+    <SCALE>1e-6</SCALE>
+    <SORT>geo</SORT>
+    <RANGE_MIN>-5.0</RANGE_MIN>
+    <RANGE_MAX>5.0</RANGE_MAX>
+    <DATADIR>/nfs/data</DATADIR>
+  </macros>
+  <width>1420</width>
+  <height>840</height>
+  <widget type="rectangle" version="2.0.0">
+    <name>TitleBar</name>
+    <width>1420</width><height>32</height>
+    <line_width>0</line_width>
+    <background_color><color red="0" green="0" blue="128"/></background_color>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Title</name>
+    <text>$(TITLE)</text>
+    <x>10</x><y>0</y><width>500</width><height>32</height>
+    <font><font family="Liberation Sans" style="BOLD" size="18.0"/></font>
+    <foreground_color><color red="255" green="255" blue="255"/></foreground_color>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>ConfLabel</name>
+    <text>$(CONFFILE)</text>
+    <x>520</x><y>0</y><width>890</width><height>32</height>
+    <font><font family="Liberation Sans" style="ITALIC" size="10.0"/></font>
+    <foreground_color><color red="220" green="220" blue="255"/></foreground_color>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblZone</name>
+    <text>Zone</text>
+    <x>0</x><y>38</y><width>45</width><height>28</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>zone_combo</name>
+    <pv_name>loc://bpm_zone$(DID)("$(ZONE)")</pv_name>
+    <x>50</x><y>38</y><width>150</width><height>28</height>
+    <items>
+      <item>ALL</item>
+    </items>
+    <items_from_pv>false</items_from_pv>
+    <tooltip>BPM zone (zones of the iocs/devices in the configuration)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblMode</name>
+    <text>View</text>
+    <x>205</x><y>38</y><width>45</width><height>28</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="combo" version="2.0.0">
+    <name>mode_combo</name>
+    <pv_name>loc://bpm_mode$(DID)("Absolute")</pv_name>
+    <x>255</x><y>38</y><width>190</width><height>28</height>
+    <items>
+      <item>Absolute</item>
+      <item>Difference to reference</item>
+    </items>
+    <items_from_pv>false</items_from_pv>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblAvg</name>
+    <text>Avg</text>
+    <x>450</x><y>38</y><width>35</width><height>28</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="spinner" version="2.0.0">
+    <name>navg</name>
+    <pv_name>loc://bpm_navg$(DID)($(NAVG))</pv_name>
+    <x>490</x><y>38</y><width>75</width><height>28</height>
+    <format>1</format>
+    <precision>0</precision>
+    <show_units>false</show_units>
+    <minimum>1.0</minimum>
+    <maximum>10000.0</maximum>
+    <limits_from_pv>false</limits_from_pv>
+    <tooltip>Number of samples in the running average</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblSum</name>
+    <text>SUM min</text>
+    <x>570</x><y>38</y><width>65</width><height>28</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>sumthr</name>
+    <pv_name>loc://bpm_sumthr$(DID)($(SUMMIN))</pv_name>
+    <x>640</x><y>38</y><width>80</width><height>28</height>
+    <show_units>false</show_units>
+    <tooltip>BPMs with SUM below this threshold are treated as "no beam" (0 disables the check)</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>BtnReset</name>
+    <actions>
+      <action type="write_pv">
+        <description>Reset avg</description>
+        <pv_name>loc://bpm_cmd$(DID)</pv_name>
+        <value>1</value>
+      </action>
+    </actions>
+    <text>Reset avg</text>
+    <x>730</x><y>38</y><width>95</width><height>28</height>
+    <tooltip>Clear the running average and the RMS history</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>BtnSetRef</name>
+    <actions>
+      <action type="write_pv">
+        <description>Mean → Ref</description>
+        <pv_name>loc://bpm_cmd$(DID)</pv_name>
+        <value>4</value>
+      </action>
+    </actions>
+    <text>Mean → Ref</text>
+    <x>830</x><y>38</y><width>105</width><height>28</height>
+    <tooltip>Use the current averaged trajectory as reference</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>BtnClearRef</name>
+    <actions>
+      <action type="write_pv">
+        <description>Clear ref</description>
+        <pv_name>loc://bpm_cmd$(DID)</pv_name>
+        <value>2</value>
+      </action>
+    </actions>
+    <text>Clear ref</text>
+    <x>940</x><y>38</y><width>90</width><height>28</height>
+    <tooltip>Remove the reference trajectory</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>BtnReload</name>
+    <actions>
+      <action type="write_pv">
+        <description>Reload</description>
+        <pv_name>loc://bpm_cmd$(DID)</pv_name>
+        <value>3</value>
+      </action>
+    </actions>
+    <text>Reload</text>
+    <x>1035</x><y>38</y><width>80</width><height>28</height>
+    <tooltip>Reload the BPM list from $(CONFFILE)</tooltip>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>BtnSave</name>
+    <actions>
+      <action type="execute">
+        <description>Save trajectory</description>
+        <script file="scripts/SaveTrajectory.py">
+        </script>
+      </action>
+    </actions>
+    <text>Save</text>
+    <x>1120</x><y>38</y><width>80</width><height>28</height>
+    <tooltip>Save the averaged trajectory in $(DATADIR)/&lt;day&gt;/Orbit</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblLoad</name>
+    <text>Load ref</text>
+    <x>1205</x><y>38</y><width>70</width><height>28</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="fileselector" version="2.0.0">
+    <name>LoadRef</name>
+    <pv_name>loc://bpm_loadfile$(DID)("")</pv_name>
+    <x>1280</x><y>38</y><width>40</width><height>28</height>
+    <scripts>
+      <script file="scripts/LoadTrajectory.py">
+        <pv_name>loc://bpm_loadfile$(DID)</pv_name>
+      </script>
+    </scripts>
+    <tooltip>Load a saved trajectory as reference</tooltip>
+  </widget>
+  <widget type="xyplot" version="3.0.0">
+    <name>plot_x</name>
+    <x>0</x><y>72</y><width>860</width><height>300</height>
+    <title>Horizontal</title>
+    <title_font><font family="Liberation Sans" style="BOLD" size="13.0"/></title_font>
+    <show_toolbar>false</show_toolbar>
+    <show_legend>true</show_legend>
+    <scripts>
+      <script file="scripts/BPMTrajectory.py">
+        <pv_name>sim://ramp(0,1000000000,1,$(PERIOD))</pv_name>
+        <pv_name>loc://bpm_zone$(DID)</pv_name>
+        <pv_name>loc://bpm_mode$(DID)</pv_name>
+        <pv_name>loc://bpm_navg$(DID)</pv_name>
+        <pv_name>loc://bpm_sumthr$(DID)</pv_name>
+        <pv_name>loc://bpm_cmd$(DID)</pv_name>
+      </script>
+    </scripts>
+    <x_axis>
+      <title>BPM index</title>
+      <autoscale>false</autoscale>
+      <log_scale>false</log_scale>
+      <minimum>0.0</minimum>
+      <maximum>13.0</maximum>
+      <show_grid>true</show_grid>
+      <title_font><font family="Liberation Sans" style="BOLD" size="12.0"/></title_font>
+      <scale_font><font family="Liberation Sans" style="REGULAR" size="11.0"/></scale_font>
+      <visible>true</visible>
+    </x_axis>
+    <y_axes>
+      <y_axis>
+      <title>X (mm)</title>
+      <autoscale>false</autoscale>
+      <log_scale>false</log_scale>
+      <minimum>$(RANGE_MIN)</minimum>
+      <maximum>$(RANGE_MAX)</maximum>
+      <show_grid>true</show_grid>
+      <title_font><font family="Liberation Sans" style="BOLD" size="12.0"/></title_font>
+      <scale_font><font family="Liberation Sans" style="REGULAR" size="11.0"/></scale_font>
+      <on_right>false</on_right>
+      <color><color red="0" green="0" blue="0"/></color>
+      <visible>true</visible>
+    </y_axis>
+    </y_axes>
+    <traces>
+      <trace>
+        <name>X live</name>
+        <x_pv>loc://bpm_coord$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_x$(DID)(0.0,0.0)</y_pv>
+        <err_pv></err_pv>
+        <axis>0</axis>
+        <trace_type>0</trace_type>
+        <color><color red="90" green="140" blue="255"/></color>
+        <line_width>2</line_width>
+        <line_style>0</line_style>
+        <point_type>2</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>X mean ± σ</name>
+        <x_pv>loc://bpm_coord$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_xavg$(DID)(0.0,0.0)</y_pv>
+        <err_pv>loc://bpm_xstd$(DID)(0.0,0.0)</err_pv>
+        <axis>0</axis>
+        <trace_type>4</trace_type>
+        <color><color red="0" green="0" blue="200"/></color>
+        <line_width>2</line_width>
+        <line_style>0</line_style>
+        <point_type>3</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>X reference</name>
+        <x_pv>loc://bpm_coord$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_xref$(DID)(0.0,0.0)</y_pv>
+        <err_pv></err_pv>
+        <axis>0</axis>
+        <trace_type>1</trace_type>
+        <color><color red="130" green="130" blue="130"/></color>
+        <line_width>3</line_width>
+        <line_style>0</line_style>
+        <point_type>0</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+    </traces>
+  </widget>
+  <widget type="xyplot" version="3.0.0">
+    <name>plot_y</name>
+    <x>0</x><y>376</y><width>860</width><height>300</height>
+    <title>Vertical</title>
+    <title_font><font family="Liberation Sans" style="BOLD" size="13.0"/></title_font>
+    <show_toolbar>false</show_toolbar>
+    <show_legend>true</show_legend>
+    <x_axis>
+      <title>BPM index</title>
+      <autoscale>false</autoscale>
+      <log_scale>false</log_scale>
+      <minimum>0.0</minimum>
+      <maximum>13.0</maximum>
+      <show_grid>true</show_grid>
+      <title_font><font family="Liberation Sans" style="BOLD" size="12.0"/></title_font>
+      <scale_font><font family="Liberation Sans" style="REGULAR" size="11.0"/></scale_font>
+      <visible>true</visible>
+    </x_axis>
+    <y_axes>
+      <y_axis>
+      <title>Y (mm)</title>
+      <autoscale>false</autoscale>
+      <log_scale>false</log_scale>
+      <minimum>$(RANGE_MIN)</minimum>
+      <maximum>$(RANGE_MAX)</maximum>
+      <show_grid>true</show_grid>
+      <title_font><font family="Liberation Sans" style="BOLD" size="12.0"/></title_font>
+      <scale_font><font family="Liberation Sans" style="REGULAR" size="11.0"/></scale_font>
+      <on_right>false</on_right>
+      <color><color red="0" green="0" blue="0"/></color>
+      <visible>true</visible>
+    </y_axis>
+    </y_axes>
+    <traces>
+      <trace>
+        <name>Y live</name>
+        <x_pv>loc://bpm_coord$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_y$(DID)(0.0,0.0)</y_pv>
+        <err_pv></err_pv>
+        <axis>0</axis>
+        <trace_type>0</trace_type>
+        <color><color red="255" green="120" blue="120"/></color>
+        <line_width>2</line_width>
+        <line_style>0</line_style>
+        <point_type>2</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>Y mean ± σ</name>
+        <x_pv>loc://bpm_coord$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_yavg$(DID)(0.0,0.0)</y_pv>
+        <err_pv>loc://bpm_ystd$(DID)(0.0,0.0)</err_pv>
+        <axis>0</axis>
+        <trace_type>4</trace_type>
+        <color><color red="200" green="0" blue="0"/></color>
+        <line_width>2</line_width>
+        <line_style>0</line_style>
+        <point_type>3</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>Y reference</name>
+        <x_pv>loc://bpm_coord$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_yref$(DID)(0.0,0.0)</y_pv>
+        <err_pv></err_pv>
+        <axis>0</axis>
+        <trace_type>1</trace_type>
+        <color><color red="130" green="130" blue="130"/></color>
+        <line_width>3</line_width>
+        <line_style>0</line_style>
+        <point_type>0</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+    </traces>
+  </widget>
+  <widget type="xyplot" version="3.0.0">
+    <name>plot_rms</name>
+    <x>0</x><y>680</y><width>860</width><height>160</height>
+    <title>Trajectory RMS history</title>
+    <title_font><font family="Liberation Sans" style="BOLD" size="13.0"/></title_font>
+    <show_toolbar>false</show_toolbar>
+    <show_legend>true</show_legend>
+    <x_axis>
+      <title>sample</title>
+      <autoscale>false</autoscale>
+      <log_scale>false</log_scale>
+      <minimum>0.0</minimum>
+      <maximum>13.0</maximum>
+      <show_grid>true</show_grid>
+      <title_font><font family="Liberation Sans" style="BOLD" size="12.0"/></title_font>
+      <scale_font><font family="Liberation Sans" style="REGULAR" size="11.0"/></scale_font>
+      <visible>true</visible>
+    </x_axis>
+    <y_axes>
+      <y_axis>
+      <title>RMS (mm)</title>
+      <autoscale>true</autoscale>
+      <log_scale>false</log_scale>
+      <minimum>0.0</minimum>
+      <maximum>1.0</maximum>
+      <show_grid>true</show_grid>
+      <title_font><font family="Liberation Sans" style="BOLD" size="12.0"/></title_font>
+      <scale_font><font family="Liberation Sans" style="REGULAR" size="11.0"/></scale_font>
+      <on_right>false</on_right>
+      <color><color red="0" green="0" blue="0"/></color>
+      <visible>true</visible>
+    </y_axis>
+    </y_axes>
+    <traces>
+      <trace>
+        <name>RMS X</name>
+        <x_pv>loc://bpm_hist_t$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_hist_x$(DID)(0.0,0.0)</y_pv>
+        <err_pv></err_pv>
+        <axis>0</axis>
+        <trace_type>1</trace_type>
+        <color><color red="0" green="0" blue="200"/></color>
+        <line_width>2</line_width>
+        <line_style>0</line_style>
+        <point_type>0</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+      <trace>
+        <name>RMS Y</name>
+        <x_pv>loc://bpm_hist_t$(DID)(0.0,0.0)</x_pv>
+        <y_pv>loc://bpm_hist_y$(DID)(0.0,0.0)</y_pv>
+        <err_pv></err_pv>
+        <axis>0</axis>
+        <trace_type>1</trace_type>
+        <color><color red="200" green="0" blue="0"/></color>
+        <line_width>2</line_width>
+        <line_style>0</line_style>
+        <point_type>0</point_type>
+        <point_size>8</point_size>
+        <visible>true</visible>
+      </trace>
+    </traces>
+  </widget>
+  <widget type="table" version="2.0.0">
+    <name>bpm_table</name>
+    <x>870</x><y>72</y><width>550</width><height>604</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="11.0"/></font>
+    <show_toolbar>false</show_toolbar>
+    <columns>
+      <column>
+        <name>BPM</name>
+        <width>92</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>X</name>
+        <width>52</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>Y</name>
+        <width>52</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>SUM</name>
+        <width>62</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>⟨X⟩</name>
+        <width>52</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>⟨Y⟩</name>
+        <width>52</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>σX</name>
+        <width>46</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>σY</name>
+        <width>46</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>ΔX</name>
+        <width>52</width>
+        <editable>false</editable>
+      </column>
+      <column>
+        <name>ΔY</name>
+        <width>52</width>
+        <editable>false</editable>
+      </column>
+    </columns>
+    <editable>false</editable>
+    <tooltip>Positions in mm; ⟨⟩ running average, σ standard deviation, Δ averaged deviation from reference. Red: no beam / disconnected</tooltip>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>RmsLabel</name>
+    <pv_name>loc://bpm_rms_label$(DID)("RMS (mm)")</pv_name>
+    <x>870</x><y>686</y><width>260</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <format>6</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblRmsX</name>
+    <text>X</text>
+    <x>1130</x><y>686</y><width>20</width><height>24</height>
+    <font><font family="Liberation Sans" style="BOLD" size="12.0"/></font>
+    <foreground_color><color red="0" green="0" blue="200"/></foreground_color>
+    <horizontal_alignment>1</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>RmsX</name>
+    <pv_name>loc://bpm_rms_x$(DID)("")</pv_name>
+    <x>1150</x><y>686</y><width>100</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <format>6</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblRmsY</name>
+    <text>Y</text>
+    <x>1260</x><y>686</y><width>20</width><height>24</height>
+    <font><font family="Liberation Sans" style="BOLD" size="12.0"/></font>
+    <foreground_color><color red="200" green="0" blue="0"/></foreground_color>
+    <horizontal_alignment>1</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>RmsY</name>
+    <pv_name>loc://bpm_rms_y$(DID)("")</pv_name>
+    <x>1280</x><y>686</y><width>100</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <format>6</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblValid</name>
+    <text>Valid BPMs</text>
+    <x>870</x><y>716</y><width>120</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Valid</name>
+    <pv_name>loc://bpm_valid$(DID)("")</pv_name>
+    <x>990</x><y>716</y><width>120</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <format>6</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblRef</name>
+    <text>Reference</text>
+    <x>870</x><y>746</y><width>120</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>RefName</name>
+    <pv_name>loc://bpm_ref_name$(DID)("none")</pv_name>
+    <x>990</x><y>746</y><width>430</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <format>6</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblSaved</name>
+    <text>Saved in</text>
+    <x>870</x><y>776</y><width>120</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Saved</name>
+    <pv_name>loc://bpm_saved$(DID)("none")</pv_name>
+    <x>990</x><y>776</y><width>430</width><height>24</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="12.0"/></font>
+    <format>6</format>
+    <show_units>false</show_units>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>LblHelp</name>
+    <text>Steer with the reference loaded (or Mean → Ref) and watch ΔX/ΔY and the RMS history go to zero.</text>
+    <x>870</x><y>806</y><width>550</width><height>20</height>
+    <font><font family="Liberation Sans" style="ITALIC" size="9.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+</display>
