@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  BPM readback list generated at runtime from the beamline values*.yaml (CONFFILE).
+  Macros: CONFFILE (required), ZONE, SCALE (raw -> mm), SORT (geo|name)
+-->
+<display version="2.0.0">
+  <name>BPM list</name>
+  <macros>
+    <ZONE>ALL</ZONE>
+    <SCALE>1e-6</SCALE>
+    <SORT>geo</SORT>
+  </macros>
+  <width>552</width>
+  <height>360</height>
+  <scripts>
+    <script file="scripts/BPMListPopulate.py" check_connections="false">
+      <pv_name>loc://bpm_list_load$(DID)(1)</pv_name>
+    </script>
+  </scripts>
+  <widget type="label" version="2.0.0">
+    <name>HNAME</name>
+    <text>BPM</text>
+    <x>0</x><y>0</y><width>62</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>HS</name>
+    <text>s (m)</text>
+    <x>64</x><y>0</y><width>46</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>HIOC</name>
+    <text>IOC</text>
+    <x>112</x><y>0</y><width>70</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>HPVX</name>
+    <text>X (mm)</text>
+    <x>184</x><y>0</y><width>100</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>HPVY</name>
+    <text>Y (mm)</text>
+    <x>286</x><y>0</y><width>100</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>HPVSUM</name>
+    <text>SUM</text>
+    <x>388</x><y>0</y><width>100</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>HPVST</name>
+    <text>Status</text>
+    <x>490</x><y>0</y><width>60</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="embedded" version="2.0.0">
+    <name>element_template</name>
+    <file>bpm_row.bob</file>
+    <y>24</y>
+    <width>552</width>
+    <height>24</height>
+    <visible>false</visible>
+  </widget>
+</display>

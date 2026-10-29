@@ -7,7 +7,7 @@ BPMs are discovered from epicsConfiguration.iocs:
   - template libera-spe  : one BPM per device, PVs <iocprefix>:<name>:spe.{x,y,sum} (bunch 0)
   - any ioc/device with devtype 'bpm' and explicit pvx/pvy[/pvsum] keys
     ($(P) and $(R) are replaced by iocprefix and device name)
-Optional keys (ioc or device): bpm_scale (raw unit -> mm, default SCALE macro),
+Optional keys (ioc or device): pvstatus, bpm_scale (raw unit -> mm, default SCALE macro),
 s (longitudinal position in m, used as x coordinate when all BPMs have it),
 geo (ordering), zones, disable.
 """
@@ -17,10 +17,13 @@ import os
 
 STATE_KEY = "unibpm.trajectory"
 
+# x, y, sum, status
 DEFAULT_PVS = {
-    'libera-sppp': ("$(P):X", "$(P):Y", "$(P):SUM"),
-    'libera-spe': ("$(P):$(R):spe.x", "$(P):$(R):spe.y", "$(P):$(R):spe.sum"),
+    'libera-sppp': ("$(P):X", "$(P):Y", "$(P):SUM", None),
+    'libera-spe': ("$(P):$(R):spe.x", "$(P):$(R):spe.y", "$(P):$(R):spe.sum", "$(P):$(R):spe.status"),
 }
+# templates whose position PVs are per-bunch arrays (element 0 is used)
+ARRAY_TEMPLATES = ('libera-spe',)
 
 
 def _epik8sutil(widget):
@@ -102,6 +105,7 @@ def load_bpms(widget, conffile, default_scale, sort="geo"):
             pvx = dev.get("pvx") or ioc.get("pvx") or (pvs and pvs[0])
             pvy = dev.get("pvy") or ioc.get("pvy") or (pvs and pvs[1])
             pvsum = dev.get("pvsum") or ioc.get("pvsum") or (pvs and pvs[2])
+            pvst = dev.get("pvstatus") or ioc.get("pvstatus") or (pvs and pvs[3])
             if not pvx or not pvy:
                 continue
             p = dev.get("prefix", prefix)
@@ -111,6 +115,8 @@ def load_bpms(widget, conffile, default_scale, sort="geo"):
                 "x": _expand(pvx, p, name),
                 "y": _expand(pvy, p, name),
                 "sum": _expand(pvsum, p, name) if pvsum else None,
+                "status": _expand(pvst, p, name) if pvst else None,
+                "array": tmpl in ARRAY_TEMPLATES,
                 "scale": _num(dev.get("bpm_scale")) or ioc_scale,
                 "s": _num(dev.get("s", ioc.get("s") if single else None)),
                 "geo": _num(dev.get("geo", ioc.get("geo") if single else None)),

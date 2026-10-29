@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- one BPM row of bpm_list.bob; macros NAME, S, IOC, PVX, PVY, PVSUM, PVST -->
+<display version="2.0.0">
+  <name>BPM row</name>
+  <width>552</width>
+  <height>24</height>
+  <widget type="label" version="2.0.0">
+    <name>Name</name>
+    <text>$(NAME)</text>
+    <x>0</x><y>0</y><width>62</width><height>22</height>
+    <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>S</name>
+    <text>$(S)</text>
+    <x>64</x><y>0</y><width>46</width><height>22</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="9.0"/></font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Ioc</name>
+    <text>$(IOC)</text>
+    <x>112</x><y>0</y><width>70</width><height>22</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="9.0"/></font>
+    <horizontal_alignment>0</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>X</name>
+    <pv_name>$(PVX)</pv_name>
+    <x>184</x><width>100</width><height>22</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="10.0"/></font>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)</tooltip>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Y</name>
+    <pv_name>$(PVY)</pv_name>
+    <x>286</x><width>100</width><height>22</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="10.0"/></font>
+    <format>1</format>
+    <precision>3</precision>
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)</tooltip>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Sum</name>
+    <pv_name>$(PVSUM)</pv_name>
+    <x>388</x><width>100</width><height>22</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="10.0"/></font>
+    <format>1</format>
+    <precision>0</precision>
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)</tooltip>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Status</name>
+    <pv_name>$(PVST)</pv_name>
+    <x>490</x><width>60</width><height>22</height>
+    <font><font family="Liberation Sans" style="REGULAR" size="10.0"/></font>
+    
+    <show_units>false</show_units>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <tooltip>$(pv_name)</tooltip>
+  </widget>
+</display>
