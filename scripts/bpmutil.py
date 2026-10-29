@@ -4,7 +4,9 @@ and per-display state shared between the engine, save and load scripts.
 BPMs are discovered from epicsConfiguration.iocs:
   - template libera-sppp : one BPM per ioc, PVs <iocprefix>:{X,Y,SUM}
                            name = 'bpm' key or last field of iocprefix
-  - template libera-spe  : one BPM per device, PVs <iocprefix>:<name>:spe.{x,y,sum} (bunch 0)
+  - template libera-spe,
+    libera-bplus         : one BPM per device, PVs <iocprefix>:<name>:{X,Y,SUM}
+  (common BPM interface of the Libera templates, buffers in :X_BUF, :Y_BUF, :SUM_BUF)
   - any ioc/device with devtype 'bpm' and explicit pvx/pvy[/pvsum] keys
     ($(P) and $(R) are replaced by iocprefix and device name)
 Optional keys (ioc or device): pvstatus, bpm_scale (raw unit -> mm, default SCALE macro),
@@ -19,13 +21,15 @@ import os
 
 STATE_KEY = "unibpm.trajectory"
 
-# x, y, sum, status
+# x, y, sum, status: common BPM interface of the Libera templates
+# (epics-support-template-infn/libera/README.md): <BPM>:X, :Y, :SUM (+ :X_BUF, :Y_BUF, :SUM_BUF)
 DEFAULT_PVS = {
     'libera-sppp': ("$(P):X", "$(P):Y", "$(P):SUM", None),
-    'libera-spe': ("$(P):$(R):spe.x", "$(P):$(R):spe.y", "$(P):$(R):spe.sum", "$(P):$(R):spe.status"),
+    'libera-spe': ("$(P):$(R):X", "$(P):$(R):Y", "$(P):$(R):SUM", "$(P):$(R):spe.status"),
+    'libera-bplus': ("$(P):$(R):X", "$(P):$(R):Y", "$(P):$(R):SUM", None),
 }
-# templates whose position PVs are per-bunch arrays (element 0 is used)
-ARRAY_TEMPLATES = ('libera-spe',)
+# templates whose position PVs are arrays (element 0 is used); none with the common interface
+ARRAY_TEMPLATES = ()
 
 
 def _epik8sutil(widget):
