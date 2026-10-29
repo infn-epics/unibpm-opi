@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>Trigger decoding</name>
+  <width>600</width>
+  <height>700</height>
+  <background_color>
+    <color red="240" green="240" blue="240">
+    </color>
+  </background_color>
+  <actions>
+  </actions>
+  <grid_step_x>5</grid_step_x>
+  <grid_step_y>5</grid_step_y>
+  <widget type="tabs" version="2.0.0">
+    <name>Tabbed Container</name>
+    <tabs>
+      <tab>
+        <name>Machine Clock</name>
+        <children>
+          <widget type="table" version="2.0.0">
+            <name>Table</name>
+            <x>10</x>
+            <y>15</y>
+            <width>521</width>
+            <height>476</height>
+            <font>
+              <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+              </font>
+            </font>
+            <foreground_color>
+              <color red="192" green="192" blue="192">
+              </color>
+            </foreground_color>
+            <background_color>
+              <color red="240" green="240" blue="240">
+              </color>
+            </background_color>
+            <columns>
+              <column>
+                <name></name>
+                <width>100</width>
+                <editable>true</editable>
+              </column>
+              <column>
+                <name>Internal code</name>
+                <width>50</width>
+                <editable>false</editable>
+              </column>
+            </columns>
+            <actions>
+            </actions>
+          </widget>
+        </children>
+      </tab>
+      <tab>
+        <name>Trigger (T2)</name>
+        <children>
+        </children>
+      </tab>
+      <tab>
+        <name>Postmortem (T1)</name>
+        <children>
+        </children>
+      </tab>
+    </tabs>
+    <x>5</x>
+    <y>10</y>
+    <width>591</width>
+    <height>661</height>
+    <background_color>
+      <color red="240" green="240" blue="240">
+      </color>
+    </background_color>
+    <tab_height>10</tab_height>
+    <actions>
+    </actions>
+  </widget>
+</display>

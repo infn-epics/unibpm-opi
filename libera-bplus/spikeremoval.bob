@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>$(P), $(BPM) - spike removal</name>
+  <width>315</width>
+  <height>700</height>
+  <background_color>
+    <color red="240" green="240" blue="240">
+    </color>
+  </background_color>
+  <actions>
+  </actions>
+  <grid_step_x>5</grid_step_x>
+  <grid_step_y>5</grid_step_y>
+  <widget type="group" version="3.0.0">
+    <name>Grouping Container</name>
+    <x>5</x>
+    <y>5</y>
+    <width>305</width>
+    <height>250</height>
+    <style>2</style>
+    <background_color>
+      <color red="221" green="226" blue="232">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="polyline" version="2.0.0">
+      <name>Polyline</name>
+      <macros>
+        <pv_name></pv_name>
+      </macros>
+      <height>100</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="30" green="144" blue="255">
+        </color>
+      </line_color>
+      <actions>
+      </actions>
+      <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):tbt:sr:start</pv_name>
+      <x>221</x>
+      <y>11</y>
+      <width>68</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):tbt:sr:window</pv_name>
+      <x>221</x>
+      <y>71</y>
+      <width>68</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Start</text>
+      <x>5</x>
+      <y>10</y>
+      <width>150</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Window</text>
+      <x>5</x>
+      <y>70</y>
+      <width>150</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):tbt:sr:start</pv_name>
+      <x>154</x>
+      <y>10</y>
+      <width>60</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <minimum>-16.0</minimum>
+      <maximum>15.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):tbt:sr:window</pv_name>
+      <x>154</x>
+      <y>70</y>
+      <width>60</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <maximum>127.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):tbt:sr:avg_window</pv_name>
+      <x>221</x>
+      <y>131</y>
+      <width>68</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):tbt:sr:avg_window</pv_name>
+      <x>154</x>
+      <y>130</y>
+      <width>60</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <maximum>127.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Averaging window</text>
+      <x>5</x>
+      <y>130</y>
+      <width>150</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):tbt:sr:avg_stop</pv_name>
+      <x>221</x>
+      <y>191</y>
+      <width>68</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):tbt:sr:avg_stop</pv_name>
+      <x>154</x>
+      <y>190</y>
+      <width>60</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <maximum>127.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Averaging stop</text>
+      <x>5</x>
+      <y>190</y>
+      <width>150</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>When to start applying the averaged samples with reference to Switching marker.</text>
+      <x>5</x>
+      <y>34</y>
+      <width>285</width>
+      <height>32</height>
+      <font>
+        <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+        </font>
+      </font>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Adjust to length of the spike.</text>
+      <x>5</x>
+      <y>94</y>
+      <width>285</width>
+      <height>25</height>
+      <font>
+        <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+        </font>
+      </font>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Number of samples to calculate the average.</text>
+      <x>5</x>
+      <y>154</y>
+      <width>285</width>
+      <height>25</height>
+      <font>
+        <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+        </font>
+      </font>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>When to stop the averaging window.</text>
+      <x>5</x>
+      <y>214</y>
+      <width>285</width>
+      <height>25</height>
+      <font>
+        <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+        </font>
+      </font>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+  </widget>
+  <widget type="picture" version="2.0.0">
+    <name>Image</name>
+    <file>sr.png</file>
+    <x>5</x>
+    <y>260</y>
+    <width>302</width>
+    <height>394</height>
+    <actions>
+    </actions>
+  </widget>
+</display>

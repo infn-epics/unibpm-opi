@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <!-- Libera Brilliance+ main panel; macros P (iocprefix), BPM1..BPM4 (device names) -->
+  <name>Libera Brilliance+ $(P)</name>
+  <width>600</width>
+  <height>220</height>
+  <background_color>
+    <color red="240" green="240" blue="240">
+    </color>
+  </background_color>
+  <actions>
+  </actions>
+  <grid_step_x>5</grid_step_x>
+  <grid_step_y>5</grid_step_y>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <text>Brilliance+</text>
+    <x>110</x>
+    <y>3</y>
+    <width>178</width>
+    <height>25</height>
+    <font>
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+    <vertical_alignment>1</vertical_alignment>
+    <wrap_words>false</wrap_words>
+    <actions>
+    </actions>
+    <border_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </border_color>
+  </widget>
+  <widget type="picture" version="2.0.0">
+    <name>Image</name>
+    <file>libera.png</file>
+    <x>5</x>
+    <y>5</y>
+    <width>100</width>
+    <height>21</height>
+    <actions>
+    </actions>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Grouping Container</name>
+    <x>10</x>
+    <y>45</y>
+    <width>581</width>
+    <height>130</height>
+    <style>2</style>
+    <background_color>
+      <color red="221" green="226" blue="232">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button</name>
+      <actions>
+        <action type="open_display">
+          <description>Open Display</description>
+          <file>main_bpm.bob</file>
+          <macros>
+            <BPM>$(BPM1)</BPM>
+          </macros>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>$(BPM1)</text>
+      <x>90</x>
+      <y>50</y>
+      <width>180</width>
+      <background_color>
+        <color red="221" green="226" blue="232">
+        </color>
+      </background_color>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_1</name>
+      <actions>
+        <action type="open_display">
+          <description>Open Display</description>
+          <file>main_bpm.bob</file>
+          <macros>
+            <BPM>$(BPM2)</BPM>
+          </macros>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>$(BPM2)</text>
+      <x>90</x>
+      <y>85</y>
+      <width>180</width>
+      <background_color>
+        <color red="221" green="226" blue="232">
+        </color>
+      </background_color>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_2</name>
+      <actions>
+        <action type="open_display">
+          <description>Open Display</description>
+          <file>main_bpm.bob</file>
+          <macros>
+            <BPM>$(BPM3)</BPM>
+          </macros>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>$(BPM3)</text>
+      <x>390</x>
+      <y>50</y>
+      <width>180</width>
+      <background_color>
+        <color red="221" green="226" blue="232">
+        </color>
+      </background_color>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button_3</name>
+      <actions>
+        <action type="open_display">
+          <description>Open Display</description>
+          <file>main_bpm.bob</file>
+          <macros>
+            <BPM>$(BPM4)</BPM>
+          </macros>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>$(BPM4)</text>
+      <x>390</x>
+      <y>85</y>
+      <width>180</width>
+      <background_color>
+        <color red="221" green="226" blue="232">
+        </color>
+      </background_color>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Action Button</name>
+      <actions>
+        <action type="open_display">
+          <description>Open Display</description>
+          <file>fans.bob</file>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text></text>
+      <x>10</x>
+      <y>50</y>
+      <width>70</width>
+      <height>65</height>
+      <background_color>
+        <color red="221" green="226" blue="232">
+        </color>
+      </background_color>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+    <widget type="action_button" version="3.0.0">
+      <name>Menu Button</name>
+      <actions>
+        <action type="open_display">
+          <description>Open TIM module settings</description>
+          <file>tim.bob</file>
+          <macros>
+            <TIM>tim</TIM>
+          </macros>
+          <target>tab</target>
+        </action>
+        <action type="open_display">
+          <description>Open EvRx module settings</description>
+          <file>evrx.bob</file>
+          <macros>
+            <TIM>evrx</TIM>
+          </macros>
+          <target>tab</target>
+        </action>
+      </actions>
+      <text>timing</text>
+      <x>280</x>
+      <y>85</y>
+      <background_color>
+        <color red="240" green="240" blue="240">
+        </color>
+      </background_color>
+      <transparent>true</transparent>
+      <tooltip>$(actions)</tooltip>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>Instrumentation Technologies - January 2019</text>
+    <x>321</x>
+    <y>180</y>
+    <width>270</width>
+    <font>
+      <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+      </font>
+    </font>
+    <horizontal_alignment>2</horizontal_alignment>
+    <vertical_alignment>1</vertical_alignment>
+    <wrap_words>false</wrap_words>
+    <actions>
+    </actions>
+    <border_color>
+      <color red="0" green="128" blue="255">
+      </color>
+    </border_color>
+  </widget>
+</display>

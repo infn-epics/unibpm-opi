@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- one BPM row of bpm_list.bob; macros NAME, S, IOC, PVX, PVY, PVSUM, PVST -->
+<!-- one BPM row of bpm_list.bob; macros NAME, S, IOC, PVX, PVY, PVSUM, PVST, OPI, OPI_ENABLED
+     and the device panel macros (P, R, BPM, DEVICE, BOARD, BPM1..BPMn, opi_macros),
+     inherited by the panel opened from the name button -->
 <display version="2.0.0">
   <name>BPM row</name>
   <width>552</width>
   <height>24</height>
-  <widget type="label" version="2.0.0">
+  <widget type="action_button" version="3.0.0">
     <name>Name</name>
+    <actions>
+      <action type="open_display">
+        <description>$(NAME) panel</description>
+        <file>$(OPI)</file>
+        <macros>
+          <P>$(P)</P>
+          <R>$(R)</R>
+          <BPM>$(BPM)</BPM>
+          <DEVICE>$(DEVICE)</DEVICE>
+        </macros>
+        <target>window</target>
+      </action>
+    </actions>
     <text>$(NAME)</text>
-    <x>0</x><y>0</y><width>62</width><height>22</height>
+    <x>0</x><y>1</y><width>62</width><height>22</height>
     <font><font family="Liberation Sans" style="BOLD" size="10.0"/></font>
-    <horizontal_alignment>0</horizontal_alignment>
-    <vertical_alignment>1</vertical_alignment>
+    <enabled>$(OPI_ENABLED)</enabled>
+    <tooltip>$(OPI) ($(IOC))</tooltip>
   </widget>
   <widget type="label" version="2.0.0">
     <name>S</name>

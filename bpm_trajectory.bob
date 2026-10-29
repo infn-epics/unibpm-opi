@@ -39,11 +39,29 @@
   <widget type="label" version="2.0.0">
     <name>ConfLabel</name>
     <text>$(CONFFILE)</text>
-    <x>520</x><y>0</y><width>890</width><height>32</height>
+    <x>520</x><y>0</y><width>740</width><height>32</height>
     <font><font family="Liberation Sans" style="ITALIC" size="10.0"/></font>
     <foreground_color><color red="220" green="220" blue="255"/></foreground_color>
     <horizontal_alignment>2</horizontal_alignment>
     <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>BtnBpmPanels</name>
+    <actions>
+      <action type="open_display">
+        <description>BPM panels</description>
+        <file>bpm_list.bob</file>
+        <macros>
+          <CONFFILE>$(CONFFILE)</CONFFILE>
+          <ZONE>$(ZONE)</ZONE>
+          <SCALE>$(SCALE)</SCALE>
+        </macros>
+        <target>window</target>
+      </action>
+    </actions>
+    <text>BPM panels</text>
+    <x>1270</x><y>2</y><width>140</width><height>28</height>
+    <tooltip>BPM list from $(CONFFILE): click a BPM name to open its device panel (yaml 'opi')</tooltip>
   </widget>
   <widget type="label" version="2.0.0">
     <name>LblZone</name>

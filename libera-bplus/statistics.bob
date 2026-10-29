@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>$(P), $(BPM) - statistics</name>
+  <width>430</width>
+  <height>460</height>
+  <background_color>
+    <color red="240" green="240" blue="240">
+    </color>
+  </background_color>
+  <actions>
+  </actions>
+  <grid_step_x>5</grid_step_x>
+  <grid_step_y>5</grid_step_y>
+  <widget type="group" version="3.0.0">
+    <name>Grouping Container</name>
+    <x>5</x>
+    <y>30</y>
+    <width>420</width>
+    <height>176</height>
+    <style>2</style>
+    <background_color>
+      <color red="221" green="226" blue="232">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="polyline" version="2.0.0">
+      <name>Polyline</name>
+      <macros>
+        <pv_name></pv_name>
+      </macros>
+      <height>100</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="30" green="144" blue="255">
+        </color>
+      </line_color>
+      <actions>
+      </actions>
+      <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):stat:sa:window</pv_name>
+      <x>311</x>
+      <y>11</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):stat:sa:step</pv_name>
+      <x>311</x>
+      <y>41</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Moving window (SA samples)</text>
+      <x>5</x>
+      <y>10</y>
+      <width>220</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Update rate (0.1*seconds)</text>
+      <x>5</x>
+      <y>40</y>
+      <width>220</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):stat:sa:window</pv_name>
+      <x>245</x>
+      <y>10</y>
+      <width>60</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <minimum>10.0</minimum>
+      <maximum>600.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+      <increment>10.0</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):stat:sa:step</pv_name>
+      <x>245</x>
+      <y>40</y>
+      <width>60</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <minimum>10.0</minimum>
+      <limits_from_pv>false</limits_from_pv>
+      <increment>10.0</increment>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_7</name>
+      <pv_name>$(P):$(BPM):stat:sa:x_mean</pv_name>
+      <x>181</x>
+      <y>96</y>
+      <width>118</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_2</name>
+      <text>Horizontal: mean / RMS</text>
+      <x>5</x>
+      <y>95</y>
+      <width>170</width>
+      <height>25</height>
+      <background_color>
+        <color red="114" green="159" blue="207">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_8</name>
+      <pv_name>$(P):$(BPM):stat:sa:y_mean</pv_name>
+      <x>181</x>
+      <y>131</y>
+      <width>118</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_9</name>
+      <pv_name>$(P):$(BPM):stat:sa:x_std</pv_name>
+      <x>311</x>
+      <y>96</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_3</name>
+      <text>Vertical: mean / RMS</text>
+      <x>5</x>
+      <y>130</y>
+      <width>170</width>
+      <height>25</height>
+      <background_color>
+        <color red="114" green="159" blue="207">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_1</name>
+      <pv_name>$(P):$(BPM):stat:sa:y_std</pv_name>
+      <x>311</x>
+      <y>131</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_11</name>
+    <text>  Slow data</text>
+    <x>11</x>
+    <y>6</y>
+    <width>198</width>
+    <height>23</height>
+    <font>
+      <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
+      </font>
+    </font>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <wrap_words>false</wrap_words>
+    <actions>
+    </actions>
+    <border_width>1</border_width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>  Turn-by-turn data (DDC)</text>
+    <x>11</x>
+    <y>211</y>
+    <width>198</width>
+    <height>23</height>
+    <font>
+      <font name="Default Bold" family="Liberation Sans" style="BOLD" size="14.0">
+      </font>
+    </font>
+    <transparent>false</transparent>
+    <vertical_alignment>1</vertical_alignment>
+    <wrap_words>false</wrap_words>
+    <actions>
+    </actions>
+    <border_width>1</border_width>
+  </widget>
+  <widget type="group" version="3.0.0">
+    <name>Grouping Container_1</name>
+    <x>5</x>
+    <y>234</y>
+    <width>420</width>
+    <height>192</height>
+    <style>2</style>
+    <background_color>
+      <color red="221" green="226" blue="232">
+      </color>
+    </background_color>
+    <actions>
+    </actions>
+    <widget type="polyline" version="2.0.0">
+      <name>Polyline</name>
+      <macros>
+        <pv_name></pv_name>
+      </macros>
+      <height>100</height>
+      <line_width>1</line_width>
+      <line_color>
+        <color red="30" green="144" blue="255">
+        </color>
+      </line_color>
+      <actions>
+      </actions>
+      <tooltip>$(pv_name)
+$(pv_value)</tooltip>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):stat:tbt:window</pv_name>
+      <x>311</x>
+      <y>11</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):stat:tbt:period</pv_name>
+      <x>311</x>
+      <y>41</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Moving window (TBT samples)</text>
+      <x>5</x>
+      <y>10</y>
+      <width>220</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Update rate (seconds)</text>
+      <x>5</x>
+      <y>40</y>
+      <width>220</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):stat:tbt:window</pv_name>
+      <x>225</x>
+      <y>10</y>
+      <width>80</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <minimum>10.0</minimum>
+      <maximum>10000.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+      <increment>500.0</increment>
+    </widget>
+    <widget type="spinner" version="2.0.0">
+      <name>Spinner</name>
+      <pv_name>$(P):$(BPM):stat:tbt:period</pv_name>
+      <x>225</x>
+      <y>40</y>
+      <width>80</width>
+      <height>25</height>
+      <format>0</format>
+      <precision>0</precision>
+      <foreground_color>
+        <color red="164" green="0" blue="0">
+        </color>
+      </foreground_color>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <actions>
+      </actions>
+      <minimum>1.0</minimum>
+      <maximum>10.0</maximum>
+      <limits_from_pv>false</limits_from_pv>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_7</name>
+      <pv_name>$(P):$(BPM):stat:tbt:x_mean</pv_name>
+      <x>181</x>
+      <y>111</y>
+      <width>118</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_2</name>
+      <text>Horizontal: mean / RMS</text>
+      <x>5</x>
+      <y>110</y>
+      <width>170</width>
+      <height>25</height>
+      <background_color>
+        <color red="114" green="159" blue="207">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_8</name>
+      <pv_name>$(P):$(BPM):stat:tbt:y_mean</pv_name>
+      <x>181</x>
+      <y>146</y>
+      <width>118</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_9</name>
+      <pv_name>$(P):$(BPM):stat:tbt:x_std</pv_name>
+      <x>311</x>
+      <y>111</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label_3</name>
+      <text>Vertical: mean / RMS</text>
+      <x>5</x>
+      <y>145</y>
+      <width>170</width>
+      <height>25</height>
+      <background_color>
+        <color red="114" green="159" blue="207">
+        </color>
+      </background_color>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_1</name>
+      <pv_name>$(P):$(BPM):stat:tbt:y_std</pv_name>
+      <x>311</x>
+      <y>146</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="label" version="2.0.0">
+      <name>Label</name>
+      <text>Update/calculation mode</text>
+      <x>5</x>
+      <y>70</y>
+      <width>220</width>
+      <height>25</height>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_color>
+        <color red="0" green="128" blue="255">
+        </color>
+      </border_color>
+    </widget>
+    <widget type="textupdate" version="2.0.0">
+      <name>Text Update_6</name>
+      <pv_name>$(P):$(BPM):stat:tbt:mode</pv_name>
+      <x>311</x>
+      <y>71</y>
+      <width>98</width>
+      <height>23</height>
+      <background_color>
+        <color red="255" green="255" blue="255">
+        </color>
+      </background_color>
+      <horizontal_alignment>1</horizontal_alignment>
+      <vertical_alignment>1</vertical_alignment>
+      <wrap_words>false</wrap_words>
+      <actions>
+      </actions>
+      <border_width>1</border_width>
+    </widget>
+    <widget type="combo" version="2.0.0">
+      <name>Menu Button</name>
+      <pv_name>$(P):$(BPM):stat:tbt:mode</pv_name>
+      <x>224</x>
+      <y>70</y>
+      <width>81</width>
+      <height>25</height>
+      <font>
+        <font name="Fine Print" family="Liberation Sans" style="REGULAR" size="12.0">
+        </font>
+      </font>
+      <background_color>
+        <color red="240" green="240" blue="240">
+        </color>
+      </background_color>
+      <border_alarm_sensitive>false</border_alarm_sensitive>
+    </widget>
+  </widget>
+</display>

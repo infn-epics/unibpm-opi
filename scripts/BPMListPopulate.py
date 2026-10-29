@@ -46,6 +46,11 @@ for i, b in enumerate(bpms):
     macros.add("PVSUM", raw(b["sum"], b["array"]) if b["sum"] else "")
     macros.add("PVST", b["status"] or "")
     macros.add("S", "" if b["s"] is None else "%.2f" % b["s"])
+    # device specific panel from the yaml 'opi' key, opened by the name button with these macros
+    for k, v in b["macros"].items():
+        macros.add(k, v)
+    macros.add("OPI", b["opi"] or "")
+    macros.add("OPI_ENABLED", "true" if b["opi"] else "false")
     children.addChild(row)
 
 bpmutil.log("bpm_list: %d BPMs" % len(bpms))

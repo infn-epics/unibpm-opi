@@ -9,7 +9,9 @@ BPMs are discovered from epicsConfiguration.iocs:
     ($(P) and $(R) are replaced by iocprefix and device name)
 Optional keys (ioc or device): pvstatus, bpm_scale (raw unit -> mm, default SCALE macro),
 s (longitudinal position in m, used as x coordinate when all BPMs have it),
-geo (ordering), zones, disable.
+geo (ordering), zones, disable,
+opi (device panel, relative to unibpm-opi) and opi_macros (extra macros for it;
+P, R, BPM, DEVICE, BOARD (channel) and BPM1..BPMn (devices of the ioc) are passed).
 """
 from org.csstudio.display.builder.runtime.script import ScriptUtil
 import sys
@@ -97,6 +99,10 @@ def load_bpms(widget, conffile, default_scale, sort="geo"):
             single = True
         else:
             single = False
+        # BPM1..BPMn -> device names in configuration order, e.g. for libera-spe/main.bob
+        # (one tab per device); BOARD carries the actual channel
+        channels = dict(("BPM%d" % (i + 1), d.get("name"))
+                        for i, d in enumerate([d for d in devices if d.get("name")]))
 
         for dev in devices:
             name = dev.get("name")
@@ -110,6 +116,15 @@ def load_bpms(widget, conffile, default_scale, sort="geo"):
                 continue
             p = dev.get("prefix", prefix)
             zones = _as_list(dev.get("zones")) if dev.get("zones") is not None else ioc_zones
+            # macros for the device specific panel ('opi', relative to unibpm-opi)
+            macros = dict(channels)
+            macros.update({"P": p, "R": name, "BPM": name,
+                           "DEVICE": p if single else p + ":" + name})
+            if dev.get("channel") is not None:
+                macros["BOARD"] = str(dev.get("channel"))
+            for extra in (ioc.get("opi_macros"), dev.get("opi_macros")):
+                for k in (extra or {}).keys():
+                    macros[str(k)] = str(extra.get(k))
             bpms.append({
                 "name": dev.get("alias", name),
                 "x": _expand(pvx, p, name),
@@ -122,6 +137,8 @@ def load_bpms(widget, conffile, default_scale, sort="geo"):
                 "geo": _num(dev.get("geo", ioc.get("geo") if single else None)),
                 "zones": zones,
                 "ioc": ioc.get("name", ""),
+                "opi": dev.get("opi") or ioc.get("opi") or "",
+                "macros": macros,
             })
 
     if sort == "name":
